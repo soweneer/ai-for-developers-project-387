@@ -79,3 +79,17 @@ export async function createBooking(
 
   return { status: response.status, body: await response.json() };
 }
+
+export interface RescheduleResult {
+  status: number;
+  body: Record<string, unknown>;
+}
+
+export async function rescheduleBooking(bookingId: string, startTime: string): Promise<RescheduleResult> {
+  const response = await fetch(`${API_BASE_URL}/bookings/${encodeURIComponent(bookingId)}`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ startTime }),
+  });
+  return { status: response.status, body: await response.json() };
+}
