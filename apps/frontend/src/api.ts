@@ -45,4 +45,13 @@ export const bookingsApi = {
     });
     return parseOrThrow<Booking>(response);
   },
+
+  async reschedule(id: string, startTime: string): Promise<Booking> {
+    const response = await fetch(`${API_BASE_URL}/bookings/${encodeURIComponent(id)}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ startTime }),
+    });
+    return parseOrThrow<Booking>(response);
+  },
 };

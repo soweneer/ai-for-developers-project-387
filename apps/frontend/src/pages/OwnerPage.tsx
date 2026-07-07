@@ -4,6 +4,7 @@ import { IconUser } from '@tabler/icons-react';
 import { Link } from 'react-router-dom';
 import { bookingsApi } from '../api';
 import type { Booking } from '../types';
+import OwnerBookingCalendar from '../components/OwnerBookingCalendar';
 
 function formatDateTime(iso: string): string {
   return new Date(iso).toLocaleString('ru-RU', {
@@ -25,8 +26,16 @@ function OwnerPage() {
     void refresh();
   }, []);
 
+  function handleBookingRescheduled(updated: Booking) {
+    setBookings((prev) =>
+      prev.map((b) => (b.id === updated.id ? updated : b)).sort(
+        (a, b) => new Date(a.startTime).getTime() - new Date(b.startTime).getTime(),
+      ),
+    );
+  }
+
   return (
-    <Container size="md" py="xl">
+    <Container size="lg" py="xl">
       <Group align="flex-start" gap="md" wrap="nowrap">
         <ActionIcon component={Link} to="/guest" variant="default" size="lg" aria-label="Сменить роль">
           <IconUser size={18} />
@@ -72,6 +81,19 @@ function OwnerPage() {
                 </Table>
               </Table.ScrollContainer>
             )}
+          </Paper>
+
+          <Paper withBorder shadow="sm" radius="md" p="lg">
+            <Title order={4} mb="sm">
+              Календарь (перенос встреч)
+            </Title>
+            <Text size="sm" c="dimmed" mb="md">
+              Перетащите встречу на новый слот, чтобы перенести её.
+            </Text>
+            <OwnerBookingCalendar
+              bookings={bookings}
+              onBookingRescheduled={handleBookingRescheduled}
+            />
           </Paper>
         </Stack>
       </Group>
