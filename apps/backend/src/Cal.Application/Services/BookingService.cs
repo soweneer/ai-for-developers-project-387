@@ -54,6 +54,24 @@ internal sealed class BookingService(IBookingRepository bookingRepository, IEven
         var startTime = request.StartTime;
         var endTime = startTime.AddMinutes(eventType.DurationMinutes);
 
+        // BUG-2: reject bookings in the past (allow 1-minute tolerance for network latency)
+        if (startTime < DateTime.UtcNow.AddMinutes(-1))
+        {
+            throw new ArgumentException("Booking start time cannot be in the past.", nameof(request));
+        }
+
+        // BUG-1: enforce working hours 08:00–20:00 UTC
+        const int WorkDayStartHour = 8;
+        const int WorkDayEndHour = 20;
+        var startHour = startTime.Hour + startTime.Minute / 60.0;
+        var endHour = endTime.Hour + endTime.Minute / 60.0;
+        if (startHour < WorkDayStartHour || endHour > WorkDayEndHour || startHour >= WorkDayEndHour)
+        {
+            throw new ArgumentException(
+                $"Bookings are only allowed between {WorkDayStartHour:D2}:00 and {WorkDayEndHour:D2}:00.",
+                nameof(request));
+        }
+
         var existingBookings = await bookingRepository.ListAsync(cancellationToken);
         var hasConflict = existingBookings.Any(booking => booking.StartTime < endTime && booking.EndTime > startTime);
         if (hasConflict)
