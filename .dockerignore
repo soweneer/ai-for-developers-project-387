@@ -1,0 +1,13 @@
+.git
+.github
+.husky
+.claude
+node_modules
+**/node_modules
+**/bin
+**/obj
+**/dist
+e2e
+docs
+typespec
+*.md

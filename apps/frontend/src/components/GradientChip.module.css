@@ -1,0 +1,11 @@
+.label {
+  &[data-checked] {
+    color: var(--mantine-color-white);
+    border-color: transparent;
+    background-image: linear-gradient(
+      to right,
+      var(--mantine-color-pink-filled),
+      var(--mantine-color-orange-filled)
+    );
+  }
+}

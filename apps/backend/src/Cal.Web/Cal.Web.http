@@ -1,0 +1,6 @@
+@Cal.Web_HostAddress = http://localhost:5163
+
+GET {{Cal.Web_HostAddress}}/hello
+Accept: application/json
+
+###

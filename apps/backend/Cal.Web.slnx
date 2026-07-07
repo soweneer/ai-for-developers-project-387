@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="src/Cal.Web/Cal.Web.csproj" />
+  <Project Path="src/Cal.Domain/Cal.Domain.csproj" />
+  <Project Path="src/Cal.Application/Cal.Application.csproj" />
+  <Project Path="src/Cal.Infrastructure/Cal.Infrastructure.csproj" />
+</Solution>

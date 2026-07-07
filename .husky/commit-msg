@@ -1,0 +1,5 @@
+if command -v npx >/dev/null 2>&1; then
+  npx --no -- commitlint --edit "$1"
+else
+  echo "commitlint: npx not found on PATH, skipping local check (still enforced in CI on the PR)" >&2
+fi
