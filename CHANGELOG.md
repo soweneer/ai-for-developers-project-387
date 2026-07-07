@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.2.1](https://github.com/soweneer/ai-for-developers-project-387/compare/cal-app-v0.2.0...cal-app-v0.2.1) (2026-07-07)
+
+
+### Bug Fixes
+
+* **booking:** add server-side booking time validation ([a676379](https://github.com/soweneer/ai-for-developers-project-387/commit/a676379fde99537dce12abf63869ddd8849a9c3a))
+* **ci:** stop opencode agent from retriggering on its own comments ([a0337b1](https://github.com/soweneer/ai-for-developers-project-387/commit/a0337b17ef1a07bc844fdb82bba5012bbdd1ba96))
+* **ci:** use valid model id for opencode github action ([be44c0d](https://github.com/soweneer/ai-for-developers-project-387/commit/be44c0dc6fc4adab85bf2918d280a46c27234ab0))
+
 ## [0.2.0](https://github.com/soweneer/ai-for-developers-project-387/compare/cal-app-v0.1.0...cal-app-v0.2.0) (2026-07-07)
 
 
