@@ -107,6 +107,23 @@ test.describe('BUG-1 out-of-working-hours booking is rejected (regression)', () 
     expect(body.error).toContain('08:00');
   });
 
+  test('booking starting after 20:00 UTC returns 400', async ({ request }) => {
+    const eventType = await createEventType({ durationMinutes: 30 });
+
+    const response = await request.post(`${API_BASE_URL}/bookings`, {
+      data: {
+        eventTypeId: eventType.id,
+        startTime: slotDate(3, 21), // 21:00 UTC — after working window
+        guestName: uniqueName(),
+        guestEmail: uniqueEmail(),
+      },
+    });
+
+    expect(response.status()).toBe(400);
+    const body = await response.json();
+    expect(body.error).toContain('08:00');
+  });
+
   test('booking exactly at 08:00 UTC start is accepted', async ({ request }) => {
     const eventType = await createEventType({ durationMinutes: 30 });
 

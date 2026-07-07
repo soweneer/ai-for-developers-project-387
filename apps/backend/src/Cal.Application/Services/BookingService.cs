@@ -65,7 +65,7 @@ internal sealed class BookingService(IBookingRepository bookingRepository, IEven
         var endHour = endTime.TimeOfDay;
         var workStart = TimeSpan.FromHours(8);
         var workEnd = TimeSpan.FromHours(20);
-        if (startHour < workStart || endHour > workEnd)
+        if (startHour < workStart || startHour >= workEnd || endHour > workEnd)
         {
             throw new ArgumentException("Bookings are only allowed between 08:00 and 20:00.", nameof(request));
         }
