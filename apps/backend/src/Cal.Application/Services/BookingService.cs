@@ -8,7 +8,7 @@ namespace Cal.Application.Services;
 
 internal sealed class BookingService(IBookingRepository bookingRepository, IEventTypeRepository eventTypeRepository) : IBookingService
 {
-    private const int WorkDayStartHour = 8;
+    private const int WorkDayStartHour = 9;
     private const int WorkDayEndHour = 20;
 
     public async Task<IReadOnlyList<BookingDto>> ListUpcomingBookingsAsync(CancellationToken cancellationToken = default)
@@ -90,7 +90,7 @@ internal sealed class BookingService(IBookingRepository bookingRepository, IEven
 
     /// <summary>
     /// Validates that the slot [startTime, endTime) is acceptable:
-    /// not in the past, within working hours (08:00–20:00 UTC), and does not
+    /// not in the past, within working hours (09:00–20:00 UTC), and does not
     /// conflict with any existing booking (optionally excluding a specific booking
     /// so a rescheduled booking does not conflict with itself).
     /// </summary>
@@ -106,7 +106,7 @@ internal sealed class BookingService(IBookingRepository bookingRepository, IEven
             throw new ArgumentException("Booking start time cannot be in the past.");
         }
 
-        // BUG-1: enforce working hours 08:00–20:00 UTC
+        // BUG-1: enforce working hours 09:00–20:00 UTC
         var startHour = startTime.Hour + startTime.Minute / 60.0;
         var endHour = endTime.Hour + endTime.Minute / 60.0;
         if (startHour < WorkDayStartHour || endHour > WorkDayEndHour || startHour >= WorkDayEndHour)

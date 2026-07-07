@@ -34,7 +34,7 @@ export function uniqueEmail(): string {
 export function futureIsoDate(daysFromNow?: number, hour?: number): string {
   const date = new Date();
   date.setDate(date.getDate() + (daysFromNow ?? randomInt(2, 14)));
-  date.setHours(hour ?? randomInt(8, 19), 0, 0, 0);
+  date.setHours(hour ?? randomInt(9, 19), 0, 0, 0);
   return date.toISOString();
 }
 

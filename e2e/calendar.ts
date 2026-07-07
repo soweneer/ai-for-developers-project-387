@@ -22,7 +22,7 @@ export async function clickCalendarSlot(page: Page, date: Date): Promise<void> {
   await page.mouse.click(columnBox.x + columnBox.width / 2, laneBox.y + laneBox.height / 2);
 }
 
-/** A slot a few days out, at a fixed hour, comfortably inside the calendar's 08:00-20:00 window. */
+/** A slot a few days out, at a fixed hour, comfortably inside the calendar's 09:00-20:00 window. */
 export function pickSlot(daysFromNow = 3, hour = 14): Date {
   const date = new Date();
   date.setDate(date.getDate() + daysFromNow);
