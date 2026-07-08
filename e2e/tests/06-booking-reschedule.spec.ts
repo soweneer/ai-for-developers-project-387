@@ -17,12 +17,12 @@ const API_BASE_URL = 'http://localhost:5163';
 test.describe('SCN-13 PATCH /bookings/{id} – happy path reschedule', () => {
   test('rescheduling to a free slot succeeds and returns updated booking', async ({ request }) => {
     const eventType = await createEventType({ durationMinutes: 30 });
-    const originalStart = futureIsoDate(5, 9);
+    const originalStart = futureIsoDate(25, 9);
     const created = await createBooking(eventType.id, { startTime: originalStart });
     expect(created.status).toBe(201);
 
     const bookingId = created.body['id'] as string;
-    const newStart = futureIsoDate(5, 11);
+    const newStart = futureIsoDate(25, 11);
     const result = await rescheduleBooking(bookingId, newStart);
 
     expect(result.status).toBe(200);
@@ -38,8 +38,8 @@ test.describe('SCN-14 PATCH /bookings/{id} – conflict rejection', () => {
     const eventType = await createEventType({ durationMinutes: 30 });
 
     // Create two bookings at different hours
-    const slotA = futureIsoDate(6, 9);
-    const slotB = futureIsoDate(6, 11);
+    const slotA = futureIsoDate(26, 9);
+    const slotB = futureIsoDate(26, 11);
 
     const bookingA = await createBooking(eventType.id, { startTime: slotA });
     const bookingB = await createBooking(eventType.id, { startTime: slotB });
@@ -56,7 +56,7 @@ test.describe('SCN-14 PATCH /bookings/{id} – conflict rejection', () => {
 
   test('a booking does not conflict with itself when rescheduled to same slot', async () => {
     const eventType = await createEventType({ durationMinutes: 30 });
-    const start = futureIsoDate(7, 10);
+    const start = futureIsoDate(27, 10);
     const created = await createBooking(eventType.id, { startTime: start });
     expect(created.status).toBe(201);
 
@@ -70,7 +70,7 @@ test.describe('SCN-14 PATCH /bookings/{id} – conflict rejection', () => {
 test.describe('SCN-15 PATCH /bookings/{id} – validation', () => {
   test('rescheduling to the past returns 400', async () => {
     const eventType = await createEventType({ durationMinutes: 30 });
-    const start = futureIsoDate(8, 10);
+    const start = futureIsoDate(28, 10);
     const created = await createBooking(eventType.id, { startTime: start });
     expect(created.status).toBe(201);
 
@@ -82,14 +82,14 @@ test.describe('SCN-15 PATCH /bookings/{id} – validation', () => {
 
   test('rescheduling outside working hours returns 400', async () => {
     const eventType = await createEventType({ durationMinutes: 30 });
-    const start = futureIsoDate(9, 10);
+    const start = futureIsoDate(29, 10);
     const created = await createBooking(eventType.id, { startTime: start });
     expect(created.status).toBe(201);
 
     const bookingId = created.body['id'] as string;
 
     // 06:00 UTC — before working hours start
-    const outOfHours = futureIsoDate(10, 6);
+    const outOfHours = futureIsoDate(30, 6);
     const date = new Date(outOfHours);
     date.setHours(6, 0, 0, 0);
     const result = await rescheduleBooking(bookingId, date.toISOString());
@@ -97,7 +97,7 @@ test.describe('SCN-15 PATCH /bookings/{id} – validation', () => {
   });
 
   test('rescheduling a non-existent booking returns 400', async () => {
-    const result = await rescheduleBooking('00000000-0000-0000-0000-000000000000', futureIsoDate(10, 10));
+    const result = await rescheduleBooking('00000000-0000-0000-0000-000000000000', futureIsoDate(30, 10));
     expect(result.status).toBe(400);
   });
 });
@@ -112,9 +112,9 @@ test.describe('SCN-16 owner calendar drag-and-drop reschedule', () => {
     const guestName = uniqueName('Перенос Тестов');
     const lastName = guestName.split(' ').pop()!;
 
-    // Book at hour 9 on day 3 from now
+    // Book at hour 9 on day 31 from now
     const { toLocalIsoDate, buildSlotLocators } = getCalendarHelpers();
-    const daysFromNow = 3;
+    const daysFromNow = 31;
     const fromHour = 9;
     const toHour = 11;
 
