@@ -112,9 +112,11 @@ test.describe('SCN-16 owner calendar drag-and-drop reschedule', () => {
     const guestName = uniqueName('Перенос Тестов');
     const lastName = guestName.split(' ').pop()!;
 
-    // Book at hour 9 on day 31 from now
+    // Book at hour 9 on day 5 from now — must stay within the owner calendar's
+    // 14-day visible window (see OwnerBookingCalendar's timeGridFourteenDay view),
+    // otherwise the dragged event never renders and the test times out.
     const { toLocalIsoDate, buildSlotLocators } = getCalendarHelpers();
-    const daysFromNow = 31;
+    const daysFromNow = 5;
     const fromHour = 9;
     const toHour = 11;
 
