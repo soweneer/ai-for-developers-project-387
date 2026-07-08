@@ -79,4 +79,22 @@ app.MapPost("/bookings", async (CreateBookingRequest body, IBookingService booki
     })
     .WithName("CreateBooking");
 
+app.MapPatch("/bookings/{id}", async (string id, RescheduleBookingRequest body, IBookingService bookingService) =>
+    {
+        try
+        {
+            var bookingDto = await bookingService.RescheduleBookingAsync(id, body);
+            return Results.Ok(bookingDto);
+        }
+        catch (SlotUnavailableException ex)
+        {
+            return Results.Conflict(new { error = ex.Message, code = "SLOT_UNAVAILABLE" });
+        }
+        catch (ArgumentException ex)
+        {
+            return Results.BadRequest(new { error = ex.Message });
+        }
+    })
+    .WithName("RescheduleBooking");
+
 app.Run();

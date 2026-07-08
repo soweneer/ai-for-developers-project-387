@@ -34,7 +34,7 @@ export function uniqueEmail(): string {
 export function futureIsoDate(daysFromNow?: number, hour?: number): string {
   const date = new Date();
   date.setDate(date.getDate() + (daysFromNow ?? randomInt(2, 14)));
-  date.setHours(hour ?? randomInt(8, 19), 0, 0, 0);
+  date.setHours(hour ?? randomInt(9, 19), 0, 0, 0);
   return date.toISOString();
 }
 
@@ -77,5 +77,19 @@ export async function createBooking(
     }),
   });
 
+  return { status: response.status, body: await response.json() };
+}
+
+export interface RescheduleResult {
+  status: number;
+  body: Record<string, unknown>;
+}
+
+export async function rescheduleBooking(bookingId: string, startTime: string): Promise<RescheduleResult> {
+  const response = await fetch(`${API_BASE_URL}/bookings/${encodeURIComponent(bookingId)}`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ startTime }),
+  });
   return { status: response.status, body: await response.json() };
 }

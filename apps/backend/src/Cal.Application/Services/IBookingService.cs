@@ -9,4 +9,6 @@ public interface IBookingService
     Task<IReadOnlyList<BusyTimeDto>> ListBusyTimesAsync(CancellationToken cancellationToken = default);
 
     Task<BookingDto> CreateBookingAsync(CreateBookingRequest request, CancellationToken cancellationToken = default);
+
+    Task<BookingDto> RescheduleBookingAsync(string bookingId, RescheduleBookingRequest request, CancellationToken cancellationToken = default);
 }

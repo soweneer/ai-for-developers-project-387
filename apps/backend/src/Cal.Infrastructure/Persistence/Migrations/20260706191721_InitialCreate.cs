@@ -42,25 +42,6 @@ namespace Cal.Infrastructure.Persistence.Migrations
                 {
                     table.PrimaryKey("PK_EventTypes", x => x.Id);
                 });
-
-            migrationBuilder.InsertData(
-                table: "EventTypes",
-                columns: new[] { "Id", "Name", "Description", "DurationMinutes" },
-                values: new object[,]
-                {
-                    { "evt-1", "Короткая консультация", "Быстрый созвон, чтобы обсудить вопрос", 15 },
-                    { "evt-2", "Подробная встреча", "Развёрнутое обсуждение проекта", 30 },
-                });
-
-            migrationBuilder.InsertData(
-                table: "Bookings",
-                columns: new[] { "Id", "EventTypeId", "EventTypeName", "StartTime", "EndTime", "GuestName", "GuestEmail", "CreatedAt" },
-                values: new object[,]
-                {
-                    { "bkg-1", "evt-1", "Короткая консультация", new DateTime(2026, 7, 7, 10, 0, 0, DateTimeKind.Utc), new DateTime(2026, 7, 7, 10, 15, 0, DateTimeKind.Utc), "Анна Смирнова", "anna.smirnova@example.com", new DateTime(2026, 7, 6, 0, 0, 0, DateTimeKind.Utc) },
-                    { "bkg-2", "evt-2", "Подробная встреча", new DateTime(2026, 7, 8, 14, 0, 0, DateTimeKind.Utc), new DateTime(2026, 7, 8, 14, 30, 0, DateTimeKind.Utc), "Игорь Петров", "igor.petrov@example.com", new DateTime(2026, 7, 6, 0, 0, 0, DateTimeKind.Utc) },
-                    { "bkg-3", "evt-1", "Короткая консультация", new DateTime(2026, 7, 9, 9, 0, 0, DateTimeKind.Utc), new DateTime(2026, 7, 9, 9, 15, 0, DateTimeKind.Utc), "Мария Кузнецова", "maria.kuznecova@example.com", new DateTime(2026, 7, 6, 0, 0, 0, DateTimeKind.Utc) },
-                });
         }
 
         /// <inheritdoc />
