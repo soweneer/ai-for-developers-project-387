@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.0](https://github.com/soweneer/ai-for-developers-project-387/compare/cal-app-v0.3.0...cal-app-v0.4.0) (2026-07-08)
+
+
+### Features
+
+* **ci:** add nightly Lighthouse report workflow ([8ee851a](https://github.com/soweneer/ai-for-developers-project-387/commit/8ee851aba1c503a1c417eb3f17c27bdef2fe840d))
+
 ## [0.3.0](https://github.com/soweneer/ai-for-developers-project-387/compare/cal-app-v0.2.0...cal-app-v0.3.0) (2026-07-07)
 
 
