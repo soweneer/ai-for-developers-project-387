@@ -3,8 +3,8 @@
   "configurations": [
     {
       "name": "frontend",
-      "runtimeExecutable": "C:\\Users\\USER\\AppData\\Local\\Temp\\claude\\C--Users-USER-source-ai-for-developers-project-386\\b8c3a76c-03c5-4ce1-ad92-c97d70a5b3aa\\scratchpad\\dev-frontend.cmd",
-      "runtimeArgs": [],
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["--prefix", "apps/frontend", "run", "dev"],
       "port": 5173,
       "autoPort": true
     }
